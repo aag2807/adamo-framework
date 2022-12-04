@@ -8,7 +8,7 @@ build:
 
 run:
 	@echo Staring Adamo...
-	@start /min ./tmp/adamoApp.exe
+	@./tmp/adamoApp.exe
 	@echo Adamo started!
 
 clean:

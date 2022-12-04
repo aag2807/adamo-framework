@@ -1,6 +1,7 @@
 package render
 
 import (
+	"errors"
 	"fmt"
 	"html/template"
 	"log"
@@ -39,16 +40,14 @@ func (ren *Render) Page(w http.ResponseWriter, r *http.Request, view string, var
 		return ren.GoPage(w, r, view, data)
 	case "jet":
 		return ren.JetPage(w, r, view, variables, data)
-	case "razor":
+	default:
+		return errors.New(" no engine selected")
 	}
-
-	return nil
 }
 
 // GoPage renders a regular html/template page
 func (ren *Render) GoPage(w http.ResponseWriter, r *http.Request, view string, data interface{}) error {
 	filePath := fmt.Sprintf("%s/views/%s.go.html", ren.RootPath, view)
-	fmt.Println(filePath)
 	tmpl, err := template.ParseFiles(filePath)
 	if err != nil {
 		return err
